@@ -45,17 +45,18 @@ class ws_m_1612947664_sozdanie_ib_izbrannoe extends \WS\ReduceMigrations\Scenari
     /**
      * Write action by apply scenario. Use method `setData` for save need rollback data
      **/
+
+    private $iblockId = 0;  /** Тут необходимо указать свой ID инфоблока каталога */
+    private $siteId = "s1"; /** Тут необходимо указать SITE_ID */
+
     public function commit()
     {
         Loader::includeModule("ws.projectsettings");
 
-        $iblockId = 0;  /** Тут необходимо указать свой ID инфоблока каталога */
-        $siteId = "s1"; /** Тут необходимо указать SITE_ID */
-
         $builder = new IblockBuilder();
         $iblock = $builder->createIblock('service', 'Избранное', function (Iblock $iblock) {
             $iblock
-                ->siteId($siteId)
+                ->siteId($this->siteId)
                 ->sort(100)
                 ->code('favorite')
                 ->groupId(['2' => 'R', '5' => 'X']);
@@ -71,7 +72,7 @@ class ws_m_1612947664_sozdanie_ib_izbrannoe extends \WS\ReduceMigrations\Scenari
                 ->addProperty('Товар')
                 ->code('PRODUCT')
                 ->required()
-                ->typeElement($iblockId);
+                ->typeElement($this->iblockId);
         });
 
         $this->setData(["IBLOCK_ID" => $iblock->getId()]);
