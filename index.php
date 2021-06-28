@@ -1,11 +1,9 @@
 <!-- Скрипт доавления товара в избранное -->
 <script>
     $(document).ready(function () {
-
         $(document).on("click", ".js-add-to-favorite", function () {
             var that = $(this);
             var itemId = that.data('item');
-            var reload = that.data('reload')
             BX.ajax.post(
                 "/ajax/add2favorite.php",
                 {'item': itemId},
@@ -16,23 +14,10 @@
                     } else if (data.ACTION == "DELETE" && data.STATUS == true) {
                         that.removeClass("active");
                     }
-                    refreshSmallFavorite();
-                    if (reload == "Y") {
-                        window.location.reload()
-                    }
                 }
             )
         });
-
-        function refreshSmallFavorite() {
-            BX.ajax.get(
-                document.location.pathname,
-                {"REFRESH_SMALL_FAVORITE": "Y"},
-                function (data) {
-                    $(".js-favorite-refresh").html(data) // js-favorite-refresh - класс контейнера малой корзины
-                }
-            )
-        }
+    )}
 </script>
 
 

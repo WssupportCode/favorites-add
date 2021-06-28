@@ -46,15 +46,16 @@ class ws_m_1612947664_sozdanie_ib_izbrannoe extends \WS\ReduceMigrations\Scenari
      * Write action by apply scenario. Use method `setData` for save need rollback data
      **/
 
-    private $iblockId = 0;  /** Тут необходимо указать свой ID инфоблока каталога */
-    private $siteId = "s1"; /** Тут необходимо указать SITE_ID */
+    private $iblockId = 0;          /** Тут необходимо указать свой ID инфоблока каталога */
+    private $siteId = "s1";         /** Тут необходимо указать SITE_ID */
+    private $ibType = "references"; /** Тут необходимо указать Тип инфоблока */
 
     public function commit()
     {
         Loader::includeModule("ws.projectsettings");
 
         $builder = new IblockBuilder();
-        $iblock = $builder->createIblock('service', 'Избранное', function (Iblock $iblock) {
+        $iblock = $builder->createIblock($this->ibType, 'Избранное', function (Iblock $iblock) {
             $iblock
                 ->siteId($this->siteId)
                 ->sort(100)
