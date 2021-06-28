@@ -48,10 +48,14 @@ class ws_m_1612947664_sozdanie_ib_izbrannoe extends \WS\ReduceMigrations\Scenari
     public function commit()
     {
         Loader::includeModule("ws.projectsettings");
+
+        $iblockId = 0;  /** Тут необходимо указать свой ID инфоблока каталога */
+        $siteId = "s1"; /** Тут необходимо указать SITE_ID */
+
         $builder = new IblockBuilder();
         $iblock = $builder->createIblock('service', 'Избранное', function (Iblock $iblock) {
             $iblock
-                ->siteId('s1')
+                ->siteId($siteId)
                 ->sort(100)
                 ->code('favorite')
                 ->groupId(['2' => 'R', '5' => 'X']);
@@ -67,7 +71,7 @@ class ws_m_1612947664_sozdanie_ib_izbrannoe extends \WS\ReduceMigrations\Scenari
                 ->addProperty('Товар')
                 ->code('PRODUCT')
                 ->required()
-                ->typeElement("CATALOG_IBLOCK_ID"); /** Тут необходимо указать свой ID инфоблока каталога */
+                ->typeElement($iblockId);
         });
 
         $this->setData(["IBLOCK_ID" => $iblock->getId()]);

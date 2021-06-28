@@ -1,14 +1,6 @@
 <!-- Скрипт доавления товара в избранное -->
 <script>
     $(document).ready(function () {
-        if (typeof arFavorites !== "undefined") {
-            arFavorites.forEach(function (item, i) {
-                var product = $('.js-add-to-favorite[data-item="' + item + '"]');
-                if (!product.hasClass('active')) {
-                    product.addClass('active');
-                }
-            })
-        }
 
         $(document).on("click", ".js-add-to-favorite", function () {
             var that = $(this);
@@ -32,15 +24,15 @@
             )
         });
 
-    function refreshFavorite() {
-        BX.ajax.get(
-            document.location.pathname,
-            {"REFRESH_SMALL_FAVORITE": "Y"},
-            function (data) {
-                $(".js-favorite-refresh").html(data)
-            }
-        )
-    }
+        function refreshSmallFavorite() {
+            BX.ajax.get(
+                document.location.pathname,
+                {"REFRESH_SMALL_FAVORITE": "Y"},
+                function (data) {
+                    $(".js-favorite-refresh").html(data) // js-favorite-refresh - класс контейнера малой корзины
+                }
+            )
+        }
 </script>
 
 
